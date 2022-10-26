@@ -57,7 +57,9 @@ Blockly.JavaScript.finish = function (a) {
     delete Blockly.JavaScript.definitions_;
     delete Blockly.JavaScript.functionNames_;
     Blockly.JavaScript.variableDB_.reset();
-    return b.join("\n\n") + "\n\n\n" + a
+    var input_box = document.getElementById("input_box").value;
+    return "var str;\n" + input_box + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
+
 };
 Blockly.JavaScript.scrubNakedValue = function (a) {
     return a + ";\n"
@@ -735,7 +737,13 @@ Blockly.JavaScript.text_trim = function (a) {
     return [(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_MEMBER) || "''") + b, Blockly.JavaScript.ORDER_FUNCTION_CALL]
 };
 Blockly.JavaScript.text_print = function (a) {
-    return "window.alert(" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ");\n"
+    let st;
+    //st="window.alert(" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ");\n"
+    //st+="let str;\nstr+=" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ";\n"
+    //window.alert
+    st="if(str==undefined)   str="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\nelse str+="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\n"
+    //st+="window.alert(str);\n"
+    return st
 };
 Blockly.JavaScript.text_prompt_ext = function (a) {
     var b = "window.prompt(" + (a.getField("TEXT") ? Blockly.JavaScript.quote_(a.getFieldValue("TEXT")) : Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ")";

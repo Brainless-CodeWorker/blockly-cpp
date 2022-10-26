@@ -1846,6 +1846,13 @@ Blockly.defineBlocksWithJsonArray([{
     tooltip: "%{BKY_VARIABLES_GET_TOOLTIP}",
     extensions: ["contextMenu_variableSetterGetter"]
 }, {
+    type: "variables_input",
+    message0: "读入",
+    output: "Colour",
+    colour: "%{BKY_COLOUR_HUE}",
+    helpUrl: "%{BKY_COLOUR_RANDOM_HELPURL}",
+    tooltip: "%{BKY_COLOUR_RANDOM_TOOLTIP}"
+}, {
     type: "variables_set",
     message0: "%{BKY_VARIABLES_SET}",
     args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_VARIABLES_DEFAULT_NAME}"}, {

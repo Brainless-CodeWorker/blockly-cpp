@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javascript_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript_compressed.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,7 +15,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="test-zhangjiaye" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -72,7 +75,7 @@
       <workItem from="1664434798926" duration="22137000" />
       <workItem from="1664525771731" duration="9000" />
       <workItem from="1664525789589" duration="1808000" />
-      <workItem from="1666772173875" duration="2845000" />
+      <workItem from="1666772173875" duration="7818000" />
     </task>
     <task id="LOCAL-00001" summary="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
       <created>1664526803773</created>
