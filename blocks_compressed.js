@@ -1463,6 +1463,13 @@ Blockly.defineBlocksWithJsonArray([{
     helpUrl: "%{BKY_TEXT_TEXT_HELPURL}",
     tooltip: "%{BKY_TEXT_TEXT_TOOLTIP}",
     extensions: ["text_quotes", "parent_tooltip_when_inline"]
+},{
+    type: "text_input",
+    message0: "输入",
+    output: "String",
+    colour: "%{BKY_TEXTS_HUE}",
+    helpUrl: "%{BKY_COLOUR_RANDOM_HELPURL}",
+    tooltip: "%{BKY_COLOUR_RANDOM_TOOLTIP}"
 }, {
     type: "text_join",
     message0: "",

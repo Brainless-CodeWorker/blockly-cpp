@@ -287,6 +287,7 @@
     </category>
     <category id="catText" colour="160" name="文字">
         <block type="text"></block>
+        <block type="text_input"></block>
         <block type="text_join"></block>
         <block type="text_append">
             <value name="TEXT">
@@ -534,6 +535,9 @@
         prettyPrint();
     }
     workspace.addChangeListener(myUpdateFunction);
+
+    var input_box = document.getElementById('input_box')
+    input_box.addEventListener('input',myUpdateFunction);
 
     function executeBlockCode() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);

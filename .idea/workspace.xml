@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
+    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已将烨师傅的代码导入">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
@@ -22,6 +22,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/blockly_compressed.js" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/index.html" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/javascript_compressed.js" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -59,8 +61,8 @@
       <list>
         <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="Node.js.javascript_compressed.js" />
-        <item itemvalue="Node.js.python_compressed.js" />
         <item itemvalue="Node.js.blocks_compressed.js" />
+        <item itemvalue="Node.js.python_compressed.js" />
       </list>
     </recent_temporary>
   </component>
@@ -75,7 +77,7 @@
       <workItem from="1664434798926" duration="22137000" />
       <workItem from="1664525771731" duration="9000" />
       <workItem from="1664525789589" duration="1808000" />
-      <workItem from="1666772173875" duration="7818000" />
+      <workItem from="1666772173875" duration="2845000" />
     </task>
     <task id="LOCAL-00001" summary="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
       <created>1664526803773</created>

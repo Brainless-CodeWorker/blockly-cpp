@@ -57,8 +57,8 @@ Blockly.JavaScript.finish = function (a) {
     delete Blockly.JavaScript.definitions_;
     delete Blockly.JavaScript.functionNames_;
     Blockly.JavaScript.variableDB_.reset();
-    var input_box = document.getElementById("input_box").value;
-    return "var str;\n" + input_box + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
+    //var input_box = document.getElementById("input_box").value;
+    return "var str;\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
 
 };
 Blockly.JavaScript.scrubNakedValue = function (a) {
@@ -623,6 +623,10 @@ Blockly.JavaScript.texts = {};
 Blockly.JavaScript.text = function (a) {
     return [Blockly.JavaScript.quote_(a.getFieldValue("TEXT")), Blockly.JavaScript.ORDER_ATOMIC]
 };
+Blockly.JavaScript.text_input = function (a){
+    //return "document.getElementById(\"input_box\").value"
+    return ["'" + document.getElementById("input_box").value + "'", Blockly.JavaScript.ORDER_ATOMIC]
+}
 Blockly.JavaScript.text_join = function (a) {
     switch (a.itemCount_) {
         case 0:
