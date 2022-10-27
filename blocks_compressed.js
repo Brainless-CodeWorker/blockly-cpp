@@ -1463,13 +1463,6 @@ Blockly.defineBlocksWithJsonArray([{
     helpUrl: "%{BKY_TEXT_TEXT_HELPURL}",
     tooltip: "%{BKY_TEXT_TEXT_TOOLTIP}",
     extensions: ["text_quotes", "parent_tooltip_when_inline"]
-},{
-    type: "text_input",
-    message0: "输入",
-    output: "String",
-    colour: "%{BKY_TEXTS_HUE}",
-    helpUrl: "%{BKY_COLOUR_RANDOM_HELPURL}",
-    tooltip: "%{BKY_COLOUR_RANDOM_TOOLTIP}"
 }, {
     type: "text_join",
     message0: "",
@@ -1616,7 +1609,7 @@ Blockly.Blocks.text_print = {
     init: function () {
         this.jsonInit({
             message0: Blockly.Msg.TEXT_PRINT_TITLE,
-            args0: [{type: "input_value", name: "TEXT"}],
+            args0: [{type: "input_value", name: "TEXT"},{type: "field_dropdown", name: "OP",options: [["换行", "ENDL"], ["不换行", "NODL"]]}],
             previousStatement: null,
             nextStatement: null,
             colour: Blockly.Msg.TEXTS_HUE,
@@ -1625,6 +1618,21 @@ Blockly.Blocks.text_print = {
         })
     }
 };
+
+Blockly.Blocks.text_input = {
+    init: function () {
+        this.jsonInit({
+            message0: Blockly.Msg.TEXT_INPUT_TITLE,
+            args0: [{type: "input_value", name: "TEXT"}],
+            previousStatement: null,
+            nextStatement: null,
+            colour: Blockly.Msg.TEXTS_HUE,
+            tooltip: Blockly.Msg.TEXT_INPUT_TOOLTIP,
+            helpUrl: Blockly.Msg.TEXT_INPUT_HELPURL
+        })
+    }
+}
+
 Blockly.Blocks.text_prompt_ext = {
     init: function () {
         var a = [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, "TEXT"], [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, "NUMBER"]];

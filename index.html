@@ -453,7 +453,7 @@
         </block>
     </category>
     <sep></sep>
-    <category id="catVariables" colour="330" custom="VARIABLE" name="变量"></category>
+    <category id="catVariables" colour="330" custom="VARIABLE_DYNAMIC" name="变量"></category>
     <category id="catFunctions" colour="290" custom="PROCEDURE" name="函数"></category>
 </xml>
 <!-- 默认模块 -->
@@ -564,6 +564,7 @@
             throw EvalError('Infinite loop.');
         }
         document.getElementById("demo").innerHTML =myInterpreter.value;
+        console.log(myInterpreter.value)
     }
 
     document.getElementById('playButton').addEventListener('click', executeBlockCode);

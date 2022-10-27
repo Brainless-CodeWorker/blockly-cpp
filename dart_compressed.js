@@ -29,12 +29,32 @@ Blockly.Dart.init = function (a) {
     Blockly.Dart.variableDB_.setVariableMap(a.getVariableMap());
     for (var b = [], c = Blockly.Variables.allDeveloperVariables(a), d = 0; d < c.length; d++) b.push(Blockly.Dart.variableDB_.getName(c[d], Blockly.Names.DEVELOPER_VARIABLE_TYPE));
     a = Blockly.Variables.allUsedVarModels(a);
-    for (d = 0; d < a.length; d++) b.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
-    b.length && (Blockly.Dart.definitions_.variables = "var " + b.join(", ") + ";")
+
+    var var_number = [];
+    var var_string = [];
+    var var_double = [];
+
+    Blockly.Dart.LOG_VAR = a;
+
+    for (d = 0; d < a.length; d++){
+        if(a[d].type === "String")
+            var_string.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        if(a[d].type === "Number" || a[d].type === "")
+            var_number.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        if(a[d].type === "Double")
+            var_double.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        b.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+    }
+
+    if(var_number.length>0) Blockly.Dart.definitions_.variables_number = "int " + var_number.join(", ") + ";";
+    if(var_string.length>0) Blockly.Dart.definitions_.variables_colour = "string " + var_string.join(", ") + ";";
+    if(var_double.length>0) Blockly.Dart.definitions_.variables_double = "double " + var_double.join(", ") + ";";
+
+    //b.length && (Blockly.Dart.definitions_.variables = "var " + b.join(", ") + ";")
 };
 Blockly.Dart.finish = function (a) {
     a && (a = Blockly.Dart.prefixLines(a, Blockly.Dart.INDENT));
-    a = "main() {\n" + a + "}";
+    a = "int main() {\n" + a + "}";
     var b = [], c = [], d;
     for (d in Blockly.Dart.definitions_) {
         var e = Blockly.Dart.definitions_[d];
@@ -43,14 +63,14 @@ Blockly.Dart.finish = function (a) {
     delete Blockly.Dart.definitions_;
     delete Blockly.Dart.functionNames_;
     Blockly.Dart.variableDB_.reset();
-    return (b.join("\n") + "\n\n" + c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "\n\n\n") + a
+    return "#include<iostream>\nusing namespace std;\n" + (b.join("\n\n") + "\n\n" + c.join("\n") + "\n\n") + a
 };
 Blockly.Dart.scrubNakedValue = function (a) {
     return a + ";\n"
 };
 Blockly.Dart.quote_ = function (a) {
     a = a.replace(/\\/g, "\\\\").replace(/\n/g, "\\\n").replace(/\$/g, "\\$").replace(/'/g, "\\'");
-    return "'" + a + "'"
+    return '"' + a + '"'
 };
 Blockly.Dart.scrub_ = function (a, b) {
     var c = "";
@@ -730,8 +750,18 @@ Blockly.Dart.text_trim = function (a) {
     return [(Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + b, Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_print = function (a) {
-    return "print(" + (Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''") + ");\n"
+    //判断是否需要换行
+    var b = {
+        ENDL: "<<endl;\n",
+        NODL: ";\n"
+    }[a.getFieldValue("OP")];
+
+    return "cout<<" + (Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE)) + b;
 };
+Blockly.Dart.text_input = function (a) {
+    var variable_name = Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE);
+    return "cin>>" + variable_name + ";\n";
+}
 Blockly.Dart.text_prompt_ext = function (a) {
     Blockly.Dart.definitions_.import_dart_html = "import 'dart:html' as Html;";
     var b = "Html.window.prompt(" + (a.getField("TEXT") ? Blockly.Dart.quote_(a.getFieldValue("TEXT")) : Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''") + ", '')";

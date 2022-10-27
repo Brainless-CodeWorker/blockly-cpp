@@ -58,7 +58,7 @@ Blockly.JavaScript.finish = function (a) {
     delete Blockly.JavaScript.functionNames_;
     Blockly.JavaScript.variableDB_.reset();
     //var input_box = document.getElementById("input_box").value;
-    return "var str;\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
+    return "var str=\"\";\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
 
 };
 Blockly.JavaScript.scrubNakedValue = function (a) {
@@ -623,10 +623,6 @@ Blockly.JavaScript.texts = {};
 Blockly.JavaScript.text = function (a) {
     return [Blockly.JavaScript.quote_(a.getFieldValue("TEXT")), Blockly.JavaScript.ORDER_ATOMIC]
 };
-Blockly.JavaScript.text_input = function (a){
-    //return "document.getElementById(\"input_box\").value"
-    return ["'" + document.getElementById("input_box").value + "'", Blockly.JavaScript.ORDER_ATOMIC]
-}
 Blockly.JavaScript.text_join = function (a) {
     switch (a.itemCount_) {
         case 0:
@@ -745,10 +741,23 @@ Blockly.JavaScript.text_print = function (a) {
     //st="window.alert(" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ");\n"
     //st+="let str;\nstr+=" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ";\n"
     //window.alert
-    st="if(str==undefined)   str="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\nelse str+="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\n"
+    st="str+="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\n"
+
+    //判断是否需要换行
+    var b = {
+        ENDL: "str+='<br/>'\n",
+        NODL: ""
+    }[a.getFieldValue("OP")];
+
     //st+="window.alert(str);\n"
-    return st
+    return st+b;
 };
+Blockly.JavaScript.text_input = function (a){
+    //return "document.getElementById(\"input_box\").value"
+    var input_value = document.getElementById("input_box").value;
+    var variable_name = Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE);
+    return variable_name + "=" + input_value + ";\n";
+}
 Blockly.JavaScript.text_prompt_ext = function (a) {
     var b = "window.prompt(" + (a.getField("TEXT") ? Blockly.JavaScript.quote_(a.getFieldValue("TEXT")) : Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ")";
     "NUMBER" == a.getFieldValue("TYPE") && (b = "parseFloat(" + b + ")");
