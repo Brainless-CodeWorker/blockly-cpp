@@ -1498,7 +1498,7 @@ Blockly.defineBlocksWithJsonArray([{
 }, {
     type: "text_length",
     message0: "%{BKY_TEXT_LENGTH_TITLE}",
-    args0: [{type: "input_value", name: "VALUE", check: ["String", "Array"]}],
+    args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_VARIABLES_DEFAULT_NAME}"}],
     output: "Number",
     colour: "%{BKY_TEXTS_HUE}",
     tooltip: "%{BKY_TEXT_LENGTH_TOOLTIP}",
@@ -1506,7 +1506,7 @@ Blockly.defineBlocksWithJsonArray([{
 }, {
     type: "text_isEmpty",
     message0: "%{BKY_TEXT_ISEMPTY_TITLE}",
-    args0: [{type: "input_value", name: "VALUE", check: ["String", "Array"]}],
+    args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_VARIABLES_DEFAULT_NAME}"}],
     output: "Boolean",
     colour: "%{BKY_TEXTS_HUE}",
     tooltip: "%{BKY_TEXT_ISEMPTY_TOOLTIP}",

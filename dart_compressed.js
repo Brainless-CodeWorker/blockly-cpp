@@ -667,16 +667,16 @@ Blockly.Dart.text_join = function (a) {
 Blockly.Dart.text_append = function (a) {
     var b = Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE);
     a = Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''";
-    return b + " = [" + b + ", " + a + "].join();\n"
+    return b + "+" + "=" + a + ";\n"
 };
 Blockly.Dart.text_length = function (a) {
-    return [(Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + ".length", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return [Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".length()", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_isEmpty = function (a) {
-    return [(Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + ".isEmpty", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return [Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".empty()", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_indexOf = function (a) {
-    var b = "FIRST" == a.getFieldValue("END") ? "indexOf" : "lastIndexOf",
+    var b = "FIRST" == a.getFieldValue("END") ? "find" : "lastfind",
         c = Blockly.Dart.valueToCode(a, "FIND", Blockly.Dart.ORDER_NONE) || "''";
     b = (Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + "." + b + "(" + c + ")";
     return a.workspace.options.oneBasedIndex ? [b + " + 1", Blockly.Dart.ORDER_ADDITIVE] : [b, Blockly.Dart.ORDER_UNARY_POSTFIX]
@@ -730,7 +730,7 @@ Blockly.Dart.text_getSubstring = function (a) {
             default:
                 throw Error("Unhandled option (text_getSubstring).");
         }
-        a = "LAST" == d ? b + ".substring(" + e + ")" : b + ".substring(" + e + ", " + f + ")"
+        a = "LAST" == d ? b + ".substr(" + e + ")" : b + ".substr(" + e + ", " + f + ")"
     } else e = Blockly.Dart.getAdjusted(a, "AT1"), f = Blockly.Dart.getAdjusted(a, "AT2"), a = Blockly.Dart.provideFunction_("text_get_substring", ["List " + Blockly.Dart.FUNCTION_NAME_PLACEHOLDER_ + "(text, where1, at1, where2, at2) {",
         "  int getAt(where, at) {", "    if (where == 'FROM_END') {", "      at = text.length - 1 - at;", "    } else if (where == 'FIRST') {", "      at = 0;", "    } else if (where == 'LAST') {", "      at = text.length - 1;", "    } else if (where != 'FROM_START') {", "      throw 'Unhandled option (text_getSubstring).';", "    }", "    return at;", "  }", "  at1 = getAt(where1, at1);", "  at2 = getAt(where2, at2) + 1;", "  return text.substring(at1, at2);", "}"]) + "(" + b + ", '" + c + "', " + e + ", '" + d + "', " + f + ")";
     return [a, Blockly.Dart.ORDER_UNARY_POSTFIX]

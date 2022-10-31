@@ -58,7 +58,7 @@ Blockly.JavaScript.finish = function (a) {
     delete Blockly.JavaScript.functionNames_;
     Blockly.JavaScript.variableDB_.reset();
     //var input_box = document.getElementById("input_box").value;
-    return "var str=\"\";\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
+    return "var str=\'\';\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
 
 };
 Blockly.JavaScript.scrubNakedValue = function (a) {
@@ -646,10 +646,11 @@ Blockly.JavaScript.text_append = function (a) {
     return b + " = String(" + b + ") + String(" + a + ");\n"
 };
 Blockly.JavaScript.text_length = function (a) {
-    return [(Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_FUNCTION_CALL) || "''") + ".length", Blockly.JavaScript.ORDER_MEMBER]
+    return [Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".length", Blockly.JavaScript.ORDER_MEMBER]
 };
 Blockly.JavaScript.text_isEmpty = function (a) {
-    return ["!" + (Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_MEMBER) || "''") + ".length", Blockly.JavaScript.ORDER_LOGICAL_NOT]
+    var var_name = Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE);
+    return ["((" + var_name + "== '') || (" + var_name + "== undefined))", Blockly.JavaScript.ORDER_LOGICAL_NOT]
 };
 Blockly.JavaScript.text_indexOf = function (a) {
     var b = "FIRST" == a.getFieldValue("END") ? "indexOf" : "lastIndexOf",
