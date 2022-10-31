@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已实现输入框的输入">
+    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="lxh已在xfz指导下完成了文本模块的7个需求">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dart_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/dart_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/javascript_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript_compressed.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,6 +46,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "http.proxy",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -113,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666793058663</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="lxh已在xfz指导下完成了文本模块的7个需求">
+      <created>1667230733914</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1667230733915</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +150,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。" />
     <MESSAGE value="已实现输入框的输入" />
-    <option name="LAST_COMMIT_MESSAGE" value="已实现输入框的输入" />
+    <MESSAGE value="lxh已在xfz指导下完成了文本模块的7个需求" />
+    <option name="LAST_COMMIT_MESSAGE" value="lxh已在xfz指导下完成了文本模块的7个需求" />
   </component>
 </project>
