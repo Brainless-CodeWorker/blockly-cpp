@@ -55,15 +55,20 @@ Blockly.Dart.init = function (a) {
 Blockly.Dart.finish = function (a) {
     a && (a = Blockly.Dart.prefixLines(a, Blockly.Dart.INDENT));
     a = "int main() {\n" + a + "}";
-    var b = [], c = [], d;
+    var b = [], c = [], d, sep="";
     for (d in Blockly.Dart.definitions_) {
         var e = Blockly.Dart.definitions_[d];
-        e.match(/^import\s/) ? b.push(e) : c.push(e)
+        if(e.startsWith("#include"))
+            c.push(e);
+        else
+            b.push(e);
+        //e.match(/^import\s/) ? c.push(e): b.push(e)
     }
     delete Blockly.Dart.definitions_;
     delete Blockly.Dart.functionNames_;
     Blockly.Dart.variableDB_.reset();
-    return "#include<iostream>\nusing namespace std;\n" + (b.join("\n\n") + "\n\n" + c.join("\n") + "\n\n") + a
+    if(c.length!=0) sep = "\n";
+    return c.join("\n") + sep + "#include<iostream>\nusing namespace std;\n" + (b.join("\n") + "\n" ) + a
 };
 Blockly.Dart.scrubNakedValue = function (a) {
     return a + ";\n"
@@ -415,6 +420,14 @@ Blockly.Dart.math_number = function (a) {
     } else -Infinity == a ? (a = "-double.INFINITY", b = Blockly.Dart.ORDER_UNARY_PREFIX) : b = 0 > a ? Blockly.Dart.ORDER_UNARY_PREFIX : Blockly.Dart.ORDER_ATOMIC;
     return [a, b]
 };
+Blockly.Dart.float_number = function (a) {
+    a = parseFloat(a.getFieldValue("NUM"));
+    if (Infinity == a) {
+        a = "double.INFINITY";
+        var b = Blockly.Dart.ORDER_UNARY_POSTFIX
+    } else -Infinity == a ? (a = "-double.INFINITY", b = Blockly.Dart.ORDER_UNARY_PREFIX) : b = 0 > a ? Blockly.Dart.ORDER_UNARY_PREFIX : Blockly.Dart.ORDER_ATOMIC;
+    return [a, b]
+};
 Blockly.Dart.math_arithmetic = function (a) {
     var b = {
         ADD: [" + ", Blockly.Dart.ORDER_ADDITIVE],
@@ -432,57 +445,56 @@ Blockly.Dart.math_arithmetic = function (a) {
 Blockly.Dart.math_single = function (a) {
     var b = a.getFieldValue("OP");
     if ("NEG" == b) return a = Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_UNARY_PREFIX) || "0", "-" == a[0] && (a = " " + a), ["-" + a, Blockly.Dart.ORDER_UNARY_PREFIX];
-    Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
+    Blockly.Dart.definitions_.import_dart_math = "#include<cmath>";
     a = "ABS" == b || "ROUND" == b.substring(0, 5) ? Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_UNARY_POSTFIX) || "0" : "SIN" == b || "COS" == b || "TAN" == b ? Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_MULTIPLICATIVE) || "0" :
         Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_NONE) || "0";
     switch (b) {
         case "ABS":
-            var c = a + ".abs()";
+            var c = "abs(" + a + ")";
             break;
         case "ROOT":
-            c = "Math.sqrt(" + a + ")";
+            c = "sqrt(" + a + ")";
             break;
         case "LN":
-            c = "Math.log(" + a + ")";
+            c = "log(" + a + ")";
             break;
         case "EXP":
-            c = "Math.exp(" + a + ")";
+            c = "exp(" + a + ")";
             break;
         case "POW10":
-            c = "Math.pow(10," + a + ")";
+            c = "pow(10," + a + ")";
             break;
         case "ROUND":
             c = a + ".round()";
             break;
         case "ROUNDUP":
-            c = a + ".ceil()";
+            c = "ceil(" + a + ")";
             break;
         case "ROUNDDOWN":
-            c = a + ".floor()";
+            c = "floor(" + a + ")";
             break;
         case "SIN":
-            c = "Math.sin(" + a + " / 180 * Math.PI)";
+            c = "sin(" + a + ")";
             break;
         case "COS":
-            c = "Math.cos(" + a + " / 180 * Math.PI)";
+            c = "cos(" + a + ")";
             break;
         case "TAN":
-            c = "Math.tan(" + a +
-                " / 180 * Math.PI)"
+            c = "tan(" + a + ")"
     }
     if (c) return [c, Blockly.Dart.ORDER_UNARY_POSTFIX];
     switch (b) {
         case "LOG10":
-            c = "Math.log(" + a + ") / Math.log(10)";
+            c = "log10(" + a + ")";
             break;
         case "ASIN":
-            c = "Math.asin(" + a + ") / Math.PI * 180";
+            c = "asin(" + a + ")";
             break;
         case "ACOS":
-            c = "Math.acos(" + a + ") / Math.PI * 180";
+            c = "acos(" + a + ")";
             break;
         case "ATAN":
-            c = "Math.atan(" + a + ") / Math.PI * 180";
+            c = "atan(" + a + ")";
             break;
         default:
             throw Error("Unknown math operator: " + b);
@@ -491,15 +503,15 @@ Blockly.Dart.math_single = function (a) {
 };
 Blockly.Dart.math_constant = function (a) {
     var b = {
-        PI: ["Math.PI", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        E: ["Math.E", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        GOLDEN_RATIO: ["(1 + Math.sqrt(5)) / 2", Blockly.Dart.ORDER_MULTIPLICATIVE],
-        SQRT2: ["Math.SQRT2", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        SQRT1_2: ["Math.SQRT1_2", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        INFINITY: ["double.INFINITY", Blockly.Dart.ORDER_ATOMIC]
+        PI: ["M_PI", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        E: ["M_E", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        GOLDEN_RATIO: ["(1 + sqrt(5)) / 2", Blockly.Dart.ORDER_MULTIPLICATIVE],
+        SQRT2: ["sqrt(2)", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        SQRT1_2: ["sqrt(1./2)", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        INFINITY: ["INT_MAX", Blockly.Dart.ORDER_ATOMIC]
     };
     a = a.getFieldValue("CONSTANT");
-    "INFINITY" != a && (Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;");
+    "INFINITY" != a && (Blockly.Dart.definitions_.import_dart_math = "#include<cmath>");
     return b[a]
 };
 Blockly.Dart.math_number_property = function (a) {

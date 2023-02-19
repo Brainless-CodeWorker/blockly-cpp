@@ -401,6 +401,11 @@ Blockly.JavaScript.math_number = function (a) {
     a = parseFloat(a.getFieldValue("NUM"));
     return [a, 0 <= a ? Blockly.JavaScript.ORDER_ATOMIC : Blockly.JavaScript.ORDER_UNARY_NEGATION]
 };
+Blockly.JavaScript.float_number = function (a) {
+    a = parseFloat(a.getFieldValue("NUM"));
+    return [a, 0 <= a ? Blockly.JavaScript.ORDER_ATOMIC : Blockly.JavaScript.ORDER_UNARY_NEGATION]
+};
+
 Blockly.JavaScript.math_arithmetic = function (a) {
     var b = {
         ADD: [" + ", Blockly.JavaScript.ORDER_ADDITION],

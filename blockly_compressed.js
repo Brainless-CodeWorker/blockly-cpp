@@ -18383,7 +18383,7 @@ Blockly.Generator.prototype.allNestedComments = function (a) {
     b.length && b.push("");
     return b.join("\n")
 };
-//将模块转为代码
+
 Blockly.Generator.prototype.blockToCode = function (a) {
     if (!a) return "";
     if (a.disabled) return this.blockToCode(a.getNextBlock());

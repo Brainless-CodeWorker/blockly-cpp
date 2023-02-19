@@ -843,11 +843,20 @@ Blockly.Constants.Math.HUE = 230;
 Blockly.defineBlocksWithJsonArray([{
     type: "math_number",
     message0: "%1",
-    args0: [{type: "field_number", name: "NUM", value: 0}],
+    args0: [{type: "field_number", name: "NUM", value: 1}],
     output: "Number",
-    colour: "%{BKY_MATH_HUE}",
+    colour: "%{BKY_TEXTS_HUE}",
     helpUrl: "%{BKY_MATH_NUMBER_HELPURL}",
     tooltip: "%{BKY_MATH_NUMBER_TOOLTIP}",
+    extensions: ["parent_tooltip_when_inline"]
+},{
+    type: "float_number",
+    message0: "%1",
+    args0: [{type: "field_number", name: "NUM", value: 1.01}],
+    output: "Double",
+    colour: "%{BKY_MATH_HUE}",
+    helpUrl: "%{BKY_MATH_NUMBER_HELPURL}",
+    tooltip: "%{BKY_FLOAT_NUMBER_TOOLTIP}",
     extensions: ["parent_tooltip_when_inline"]
 }, {
     type: "math_arithmetic",
@@ -871,8 +880,8 @@ Blockly.defineBlocksWithJsonArray([{
         name: "OP",
         options: [["%{BKY_MATH_SINGLE_OP_ROOT}", "ROOT"], ["%{BKY_MATH_SINGLE_OP_ABSOLUTE}", "ABS"], ["-", "NEG"], ["ln", "LN"], ["log10", "LOG10"], ["e^", "EXP"], ["10^", "POW10"]]
     },
-        {type: "input_value", name: "NUM", check: "Number"}],
-    output: "Number",
+        {type: "input_value", name: "NUM", check: ["Number","Double"]}],
+    output: "Double",
     colour: "%{BKY_MATH_HUE}",
     helpUrl: "%{BKY_MATH_SINGLE_HELPURL}",
     extensions: ["math_op_tooltip"]
@@ -883,8 +892,8 @@ Blockly.defineBlocksWithJsonArray([{
         type: "field_dropdown",
         name: "OP",
         options: [["%{BKY_MATH_TRIG_SIN}", "SIN"], ["%{BKY_MATH_TRIG_COS}", "COS"], ["%{BKY_MATH_TRIG_TAN}", "TAN"], ["%{BKY_MATH_TRIG_ASIN}", "ASIN"], ["%{BKY_MATH_TRIG_ACOS}", "ACOS"], ["%{BKY_MATH_TRIG_ATAN}", "ATAN"]]
-    }, {type: "input_value", name: "NUM", check: "Number"}],
-    output: "Number",
+    }, {type: "input_value", name: "NUM", check: ["Number","Double"]}],
+    output: "Double",
     colour: "%{BKY_MATH_HUE}",
     helpUrl: "%{BKY_MATH_TRIG_HELPURL}",
     extensions: ["math_op_tooltip"]
@@ -894,9 +903,9 @@ Blockly.defineBlocksWithJsonArray([{
     args0: [{
         type: "field_dropdown",
         name: "CONSTANT",
-        options: [["\u03c0", "PI"], ["e", "E"], ["\u03c6", "GOLDEN_RATIO"], ["sqrt(2)", "SQRT2"], ["sqrt(\u00bd)", "SQRT1_2"], ["\u221e", "INFINITY"]]
+        options: [["\u03c0", "PI"], ["e", "E"], ["\u03c6", "GOLDEN_RATIO"], ["sqrt(2)", "SQRT2"], ["sqrt(\u00bd)", "SQRT1_2"]]
     }],
-    output: "Number",
+    output: "Double",
     colour: "%{BKY_MATH_HUE}",
     tooltip: "%{BKY_MATH_CONSTANT_TOOLTIP}",
     helpUrl: "%{BKY_MATH_CONSTANT_HELPURL}"
@@ -907,7 +916,7 @@ Blockly.defineBlocksWithJsonArray([{
         {
             type: "field_dropdown",
             name: "PROPERTY",
-            options: [["%{BKY_MATH_IS_EVEN}", "EVEN"], ["%{BKY_MATH_IS_ODD}", "ODD"], ["%{BKY_MATH_IS_PRIME}", "PRIME"], ["%{BKY_MATH_IS_WHOLE}", "WHOLE"], ["%{BKY_MATH_IS_POSITIVE}", "POSITIVE"], ["%{BKY_MATH_IS_NEGATIVE}", "NEGATIVE"], ["%{BKY_MATH_IS_DIVISIBLE_BY}", "DIVISIBLE_BY"]]
+            options: [["%{BKY_MATH_IS_EVEN}", "EVEN"], ["%{BKY_MATH_IS_ODD}", "ODD"], ["%{BKY_MATH_IS_POSITIVE}", "POSITIVE"], ["%{BKY_MATH_IS_NEGATIVE}", "NEGATIVE"]]
         }],
     inputsInline: !0,
     output: "Boolean",
@@ -935,7 +944,7 @@ Blockly.defineBlocksWithJsonArray([{
         options: [["%{BKY_MATH_ROUND_OPERATOR_ROUND}", "ROUND"], ["%{BKY_MATH_ROUND_OPERATOR_ROUNDUP}", "ROUNDUP"], ["%{BKY_MATH_ROUND_OPERATOR_ROUNDDOWN}", "ROUNDDOWN"]]
     }, {
         type: "input_value",
-        name: "NUM", check: "Number"
+        name: "NUM", check: "Double"
     }],
     output: "Number",
     colour: "%{BKY_MATH_HUE}",
@@ -1635,7 +1644,7 @@ Blockly.Blocks.text_input = {
 
 Blockly.Blocks.text_prompt_ext = {
     init: function () {
-        var a = [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, "TEXT"], [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, "NUMBER"]];
+        var a = [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, "TEXT"], [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, "NUMBER"], [Blockly.Msg.TEXT_PROMPT_TYPE_FLOAT, "DOUBLE"]];
         this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
         this.setColour(Blockly.Msg.TEXTS_HUE);
         var b = this;
@@ -1873,6 +1882,7 @@ Blockly.defineBlocksWithJsonArray([{
     args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_VARIABLES_DEFAULT_NAME}"}, {
         type: "input_value",
         name: "VALUE"
+        //check: ["Number", "Double", "String"]
     }],
     previousStatement: null,
     nextStatement: null,

@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已修复c++显示的基础bug&#10;已实现输入和输出(c++/js),实现输出换行&#10;已实现多类别(int,double,string)的显示">
+    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已实现将double赋值给int，并实现自动取整">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blockly_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blockly_compressed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dart_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/dart_compressed.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript_compressed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zh.js" beforeDir="false" afterPath="$PROJECT_DIR$/zh.js" afterDir="false" />
     </list>
@@ -26,7 +28,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/blockly_compressed.js" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/blocks_compressed.js" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/blocks_compressed.js" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/index.html" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/javascript_compressed.js" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -73,10 +75,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JavaScript Debug.index.html" />
-        <item itemvalue="Node.js.javascript_compressed.js" />
         <item itemvalue="Node.js.blocks_compressed.js" />
-        <item itemvalue="JavaScript Debug.index.html (1)" />
+        <item itemvalue="Node.js.javascript_compressed.js" />
         <item itemvalue="Node.js.dart_compressed.js" />
+        <item itemvalue="JavaScript Debug.index.html (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -93,7 +95,7 @@
       <workItem from="1664525789589" duration="1808000" />
       <workItem from="1666772173875" duration="2845000" />
       <workItem from="1666838194880" duration="19604000" />
-      <workItem from="1676784636298" duration="10907000" />
+      <workItem from="1676784636298" duration="27689000" />
     </task>
     <task id="LOCAL-00001" summary="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
       <created>1664526803773</created>
@@ -123,7 +125,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667230733915</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="已实现将double赋值给int，并实现自动取整">
+      <created>1676796491844</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676796491844</updated>
+    </task>
+    <task id="LOCAL-00006" summary="已实现将double赋值给int，并实现自动取整">
+      <created>1676796536496</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676796536496</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,6 +172,25 @@
     <MESSAGE value="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。" />
     <MESSAGE value="已实现输入框的输入" />
     <MESSAGE value="lxh已在xfz指导下完成了文本模块的7个需求" />
-    <option name="LAST_COMMIT_MESSAGE" value="lxh已在xfz指导下完成了文本模块的7个需求" />
+    <MESSAGE value="已实现将double赋值给int，并实现自动取整" />
+    <option name="LAST_COMMIT_MESSAGE" value="已实现将double赋值给int，并实现自动取整" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/blockly_compressed.js</url>
+          <line>18328</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/blockly_compressed.js</url>
+          <line>5575</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
