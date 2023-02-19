@@ -852,14 +852,14 @@ Blockly.defineBlocksWithJsonArray([{
 }, {
     type: "math_arithmetic",
     message0: "%1 %2 %3",
-    args0: [{type: "input_value", name: "A", check: "Number"}, {
+    args0: [{type: "input_value", name: "A", check: ["Number","Double"]}, {
         type: "field_dropdown",
         name: "OP",
         options: [["%{BKY_MATH_ADDITION_SYMBOL}", "ADD"], ["%{BKY_MATH_SUBTRACTION_SYMBOL}", "MINUS"], ["%{BKY_MATH_MULTIPLICATION_SYMBOL}",
             "MULTIPLY"], ["%{BKY_MATH_DIVISION_SYMBOL}", "DIVIDE"], ["%{BKY_MATH_POWER_SYMBOL}", "POWER"]]
-    }, {type: "input_value", name: "B", check: "Number"}],
+    }, {type: "input_value", name: "B", check: ["Number","Double"]}],
     inputsInline: !0,
-    output: "Number",
+    output: "Double",
     colour: "%{BKY_MATH_HUE}",
     helpUrl: "%{BKY_MATH_ARITHMETIC_HELPURL}",
     extensions: ["math_op_tooltip"]
@@ -1489,7 +1489,7 @@ Blockly.defineBlocksWithJsonArray([{
 }, {
     type: "text_append",
     message0: "%{BKY_TEXT_APPEND_TITLE}",
-    args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_TEXT_APPEND_VARIABLE}"},
+    args0: [{type: "field_variable", name: "VAR", variable: "%{BKY_TEXT_APPEND_VARIABLE}", check: "String"},
         {type: "input_value", name: "TEXT"}],
     previousStatement: null,
     nextStatement: null,

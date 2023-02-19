@@ -753,10 +753,26 @@ Blockly.JavaScript.text_print = function (a) {
     //st+="window.alert(str);\n"
     return st+b;
 };
+
+Blockly.JavaScript.get_variable_type_by_var_name = function(a) {
+    var all_var = Blockly.Variables.allUsedVarModels(workspace)
+    for (var d = 0; d < all_var.length; d++) {
+        if (all_var[d].name === a){
+            if(all_var[d].type === "")
+                return "Number";
+            return all_var[d].type;
+        }
+
+    }
+}
+
 Blockly.JavaScript.text_input = function (a){
     //return "document.getElementById(\"input_box\").value"
     var input_value = document.getElementById("input_box").value;
     var variable_name = Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE);
+    if(Blockly.JavaScript.get_variable_type_by_var_name(variable_name) === "Number"){
+        return variable_name + "= parseInt(" + input_value + ");\n";
+    }
     return variable_name + "=" + input_value + ";\n";
 }
 Blockly.JavaScript.text_prompt_ext = function (a) {
@@ -784,8 +800,25 @@ Blockly.JavaScript.variables = {};
 Blockly.JavaScript.variables_get = function (a) {
     return [Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE), Blockly.JavaScript.ORDER_ATOMIC]
 };
+
+Blockly.JavaScript.get_variable_type = function(a) {
+    a = a.getFieldValue("VAR")
+    var all_var = Blockly.Variables.allUsedVarModels(workspace)
+    for (var d = 0; d < all_var.length; d++) {
+        if (all_var[d].getId() === a){
+            if(all_var[d].type === "")
+                return "Number";
+            return all_var[d].type;
+        }
+
+    }
+}
+
 Blockly.JavaScript.variables_set = function (a) {
     var b = Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+    if (Blockly.JavaScript.get_variable_type(a) === "Number"){
+        return Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + " = parseInt(" + b + ");\n"
+    }
     return Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + " = " + b + ";\n"
 };
 Blockly.JavaScript.variablesDynamic = {};

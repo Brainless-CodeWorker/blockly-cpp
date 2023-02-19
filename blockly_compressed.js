@@ -18227,6 +18227,8 @@ Blockly.FieldNumber.prototype.classValidator = function (a) {
 };
 Blockly.Field.register("field_number", Blockly.FieldNumber);
 Blockly.FieldVariable = function (a, b, c, d) {
+    console.log("field_variable_output");
+    console.log(a,b,c,d)
     this.menuGenerator_ = Blockly.FieldVariable.dropdownCreate;
     this.size_ = new goog.math.Size(0, Blockly.BlockSvg.MIN_BLOCK_Y);
     this.setValidator(b);
@@ -18323,6 +18325,8 @@ Blockly.FieldVariable.dropdownCreate = function () {
 };
 Blockly.FieldVariable.prototype.onItemSelected = function (a, b) {
     var c = b.getValue();
+    console.log("FieldVariable");
+    console.log(c);
     if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         var d = this.sourceBlock_.workspace;
         if (c == Blockly.RENAME_VARIABLE_ID) {
@@ -18379,6 +18383,7 @@ Blockly.Generator.prototype.allNestedComments = function (a) {
     b.length && b.push("");
     return b.join("\n")
 };
+//将模块转为代码
 Blockly.Generator.prototype.blockToCode = function (a) {
     if (!a) return "";
     if (a.disabled) return this.blockToCode(a.getNextBlock());
@@ -18398,6 +18403,7 @@ Blockly.Generator.prototype.blockToCode = function (a) {
     if (null === b) return "";
     throw SyntaxError("Invalid code generated: " + b);
 };
+//a是模块，b表示是左半边还是右半边，c表示运算符
 Blockly.Generator.prototype.valueToCode = function (a, b, c) {
     if (isNaN(c)) throw TypeError("Expecting valid order from block: " + a.type);
     var d = a.getInputTargetBlock(b);
