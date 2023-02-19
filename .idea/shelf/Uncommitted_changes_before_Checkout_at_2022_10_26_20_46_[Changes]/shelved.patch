@@ -1,0 +1,106 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -1,11 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
++    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已将烨师傅的代码导入">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/javascript_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript_compressed.js" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -15,7 +12,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="test-zhangjiaye" />
++        <entry key="$PROJECT_DIR$" value="dev-screenIO" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -32,16 +29,17 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent">{
+-  &quot;keyToString&quot;: {
+-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;D:/Document/20220928软件应用设计/blockly-cpp&quot;,
+-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
++  <component name="PropertiesComponent"><![CDATA[{
++  "keyToString": {
++    "RunOnceActivity.OpenProjectViewOnStart": "true",
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "WebServerToolWindowFactoryState": "false",
++    "last_opened_file_path": "D:/Document/20220928软件应用设计/blockly-cpp",
++    "nodejs_package_manager_path": "npm",
++    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
++    "vue.rearranger.settings.migration": "true"
+   }
+-}</component>
++}]]></component>
+   <component name="RunManager" selected="JavaScript Debug.index.html">
+     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/blockly-cpp/index.html" useBuiltInWebServerPort="true">
+       <method v="2" />
+@@ -57,10 +55,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="JavaScript Debug.index.html" />
+-        <item itemvalue="Node.js.javascript_compressed.js" />
+         <item itemvalue="Node.js.python_compressed.js" />
++        <item itemvalue="Node.js.javascript_compressed.js" />
+         <item itemvalue="Node.js.blocks_compressed.js" />
++        <item itemvalue="JavaScript Debug.index.html" />
++        <item itemvalue="JavaScript Debug.index.html" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -75,7 +74,7 @@
+       <workItem from="1664434798926" duration="22137000" />
+       <workItem from="1664525771731" duration="9000" />
+       <workItem from="1664525789589" duration="1808000" />
+-      <workItem from="1666772173875" duration="7818000" />
++      <workItem from="1666772173875" duration="13235000" />
+     </task>
+     <task id="LOCAL-00001" summary="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
+       <created>1664526803773</created>
+@@ -91,7 +90,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1664527438330</updated>
+     </task>
+-    <option name="localTasksCounter" value="3" />
++    <task id="LOCAL-00003" summary="已将烨师傅的代码导入">
++      <created>1666783201460</created>
++      <option name="number" value="00003" />
++      <option name="presentableId" value="LOCAL-00003" />
++      <option name="project" value="LOCAL" />
++      <updated>1666783201460</updated>
++    </task>
++    <option name="localTasksCounter" value="4" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -110,6 +116,7 @@
+   </component>
+   <component name="VcsManagerConfiguration">
+     <MESSAGE value="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。" />
+-    <option name="LAST_COMMIT_MESSAGE" value="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。" />
++    <MESSAGE value="已将烨师傅的代码导入" />
++    <option name="LAST_COMMIT_MESSAGE" value="已将烨师傅的代码导入" />
+   </component>
+ </project>
+\ No newline at end of file
