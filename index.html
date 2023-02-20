@@ -238,12 +238,10 @@
                 </shadow>
             </value>
         </block>
-        <block type="math_random_float"></block>
     </category>
     <category id="catText" colour="160" name="文字">
         <block type="text"></block>
         <block type="text_input"></block>
-        <block type="text_join"></block>
         <block type="text_append">
             <value name="TEXT">
                 <shadow type="text"></shadow>
@@ -373,7 +371,7 @@
 
     function executeBlockCode() {
         var code = Blockly.JavaScript.workspaceToCode(workspace);
-        var initFunc = function(interpreter, scope) {
+        var initFunc= function(interpreter, scope) {
             var alertWrapper = function(text) {
                 text = text ? text.toString() : '';
                 return interpreter.createPrimitive(alert(text));
