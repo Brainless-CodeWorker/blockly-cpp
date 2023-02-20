@@ -993,8 +993,7 @@ Blockly.defineBlocksWithJsonArray([{
 }, {
     type: "math_random_int",
     message0: "%{BKY_MATH_RANDOM_INT_TITLE}",
-    args0: [{type: "input_value", name: "FROM", check: "Number"},
-        {type: "input_value", name: "TO", check: "Number"}],
+    args0: [{type: "input_value", name: "TO", check: "Number"}],
     inputsInline: !0,
     output: "Number",
     colour: "%{BKY_MATH_HUE}",

@@ -618,11 +618,9 @@ Blockly.Dart.math_constrain = function (a) {
     return ["Math.min(Math.max(" + b + ", " + c + "), " + a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.math_random_int = function (a) {
-    Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
-    var b = Blockly.Dart.valueToCode(a, "FROM", Blockly.Dart.ORDER_NONE) || "0";
+    Blockly.Dart.definitions_.import_dart_rand = "#include<cstdlib>";
     a = Blockly.Dart.valueToCode(a, "TO", Blockly.Dart.ORDER_NONE) || "0";
-    return [Blockly.Dart.provideFunction_("math_random_int", ["int " + Blockly.Dart.FUNCTION_NAME_PLACEHOLDER_ + "(num a, num b) {", "  if (a > b) {", "    // Swap a and b to ensure a is smaller.", "    num c = a;", "    a = b;", "    b = c;", "  }", "  return new Math.Random().nextInt(b - a + 1) + a;",
-        "}"]) + "(" + b + ", " + a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return ["rand() % " +  a , Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.math_random_float = function (a) {
     Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
