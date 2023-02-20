@@ -439,7 +439,7 @@ Blockly.Dart.math_arithmetic = function (a) {
     b = b[1];
     var d = Blockly.Dart.valueToCode(a, "A", b) || "0";
     a = Blockly.Dart.valueToCode(a, "B", b) || "0";
-    return c ? [d + c + a, b] : (Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;", ["Math.pow(" + d + ", " +
+    return c ? [d + c + a, b] : (Blockly.Dart.definitions_.import_dart_math = "#include<cmath>", ["pow(" + d + ", " +
     a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX])
 };
 Blockly.Dart.math_single = function (a) {
