@@ -234,9 +234,18 @@
             </value>
         </block>
     </category>
+    <category id="catText" colour="20" name="输入输出">
+        <block type="text_input"></block>
+        <block type="text_print">
+            <value name="TEXT">
+                <shadow type="text">
+                    <field name="TEXT">abc</field>
+                </shadow>
+            </value>
+        </block>
+    </category>
     <category id="catText" colour="160" name="文字">
         <block type="text"></block>
-        <block type="text_input"></block>
         <block type="text_append">
             <value name="TEXT">
                 <shadow type="text"></shadow>
@@ -268,13 +277,7 @@
                 </shadow>
             </value>
         </block>
-        <block type="text_print">
-            <value name="TEXT">
-                <shadow type="text">
-                    <field name="TEXT">abc</field>
-                </shadow>
-            </value>
-        </block>
+
     </category>
     <category id="catVariables" colour="330" custom="VARIABLE_DYNAMIC" name="变量"></category>
     <category id="catFunctions" colour="290" custom="PROCEDURE" name="函数"></category>

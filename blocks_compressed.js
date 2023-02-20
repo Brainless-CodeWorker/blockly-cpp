@@ -1620,7 +1620,7 @@ Blockly.Blocks.text_print = {
             args0: [{type: "input_value", name: "TEXT"},{type: "field_dropdown", name: "OP",options: [["换行", "ENDL"], ["不换行", "NODL"]]}],
             previousStatement: null,
             nextStatement: null,
-            colour: Blockly.Msg.TEXTS_HUE,
+            colour: Blockly.Msg.COLOUR_HUE,
             tooltip: Blockly.Msg.TEXT_PRINT_TOOLTIP,
             helpUrl: Blockly.Msg.TEXT_PRINT_HELPURL
         })
@@ -1634,7 +1634,7 @@ Blockly.Blocks.text_input = {
             args0: [{type: "input_value", name: "TEXT"}],
             previousStatement: null,
             nextStatement: null,
-            colour: Blockly.Msg.TEXTS_HUE,
+            colour: Blockly.Msg.COLOUR_HUE,
             tooltip: Blockly.Msg.TEXT_INPUT_TOOLTIP,
             helpUrl: Blockly.Msg.TEXT_INPUT_HELPURL
         })
