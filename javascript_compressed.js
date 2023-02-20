@@ -771,9 +771,14 @@ Blockly.JavaScript.get_variable_type_by_var_name = function(a) {
     }
 }
 
+Blockly.JavaScript.texts = {}
+Blockly.JavaScript.texts_idx = 0
+
 Blockly.JavaScript.text_input = function (a){
     //return "document.getElementById(\"input_box\").value"
-    var input_value = document.getElementById("input_box").value;
+    var input_value = Blockly.JavaScript.texts[Blockly.JavaScript.texts_idx];
+    Blockly.JavaScript.texts_idx = (Blockly.JavaScript.texts_idx + 1) % Blockly.JavaScript.texts.length;
+    //var input_value = document.getElementById("input_box").value;
     var variable_name = Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE);
     if(Blockly.JavaScript.get_variable_type_by_var_name(variable_name) === "Number"){
         return variable_name + "= parseInt(" + input_value + ");\n";

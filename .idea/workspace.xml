@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已实现将double赋值给int，并实现自动取整">
+    <list default="true" id="b8cbe07d-f6b7-40d2-a80a-0d8fb41878bb" name="Changes" comment="已删除无关功能&#10;已修复赋值方面的问题&#10;已修复大部分的c++显示问题">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blockly_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blockly_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blocks_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/blocks_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dart_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/dart_compressed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/javascript_compressed.js" beforeDir="false" afterPath="$PROJECT_DIR$/javascript_compressed.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zh.js" beforeDir="false" afterPath="$PROJECT_DIR$/zh.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +42,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Document/20220928软件应用设计/blockly-cpp&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Document/20220928软件应用设计/test&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -95,7 +91,9 @@
       <workItem from="1664525789589" duration="1808000" />
       <workItem from="1666772173875" duration="2845000" />
       <workItem from="1666838194880" duration="19604000" />
-      <workItem from="1676784636298" duration="27689000" />
+      <workItem from="1676784636298" duration="28625000" />
+      <workItem from="1676884601751" duration="1804000" />
+      <workItem from="1676897616439" duration="1116000" />
     </task>
     <task id="LOCAL-00001" summary="全部基础文件已准备完毕。&#10;已修复blockly_compressed内核的编译错误。&#10;已将python_compressed删除&#10;已修复index.html的语法错误。">
       <created>1664526803773</created>
@@ -139,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676796536496</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="已删除无关功能&#10;已修复赋值方面的问题&#10;已修复大部分的c++显示问题">
+      <created>1676817633438</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1676817633438</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,7 +178,8 @@
     <MESSAGE value="已实现输入框的输入" />
     <MESSAGE value="lxh已在xfz指导下完成了文本模块的7个需求" />
     <MESSAGE value="已实现将double赋值给int，并实现自动取整" />
-    <option name="LAST_COMMIT_MESSAGE" value="已实现将double赋值给int，并实现自动取整" />
+    <MESSAGE value="已删除无关功能&#10;已修复赋值方面的问题&#10;已修复大部分的c++显示问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="已删除无关功能&#10;已修复赋值方面的问题&#10;已修复大部分的c++显示问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -181,14 +187,13 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/blockly_compressed.js</url>
           <line>18328</line>
-          <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/blockly_compressed.js</url>
-          <line>5575</line>
+          <url>file://$PROJECT_DIR$/javascript_compressed.js</url>
+          <line>778</line>
           <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="9" />
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

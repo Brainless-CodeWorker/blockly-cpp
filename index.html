@@ -354,6 +354,8 @@
     Blockly.Xml.domToWorkspace(defaultBlocks, workspace);
 
     function myUpdateFunction(event) {
+        Blockly.JavaScript.texts = document.getElementById("input_box").value.split(/\s+/);
+        Blockly.JavaScript.texts_idx = 0;
         var languageDropdown = document.getElementById('languageDropdown');
         var languageSelection = languageDropdown.options[languageDropdown.selectedIndex].value;
         var codeDiv = document.getElementById('codeDiv');
