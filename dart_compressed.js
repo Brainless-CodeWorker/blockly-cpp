@@ -637,7 +637,13 @@ Blockly.Dart.procedures_defreturn = function (a) {
     Blockly.Dart.INFINITE_LOOP_TRAP && (c = Blockly.Dart.INFINITE_LOOP_TRAP.replace(/%1/g, "'" + a.id + "'") + c);
     (d = Blockly.Dart.valueToCode(a, "RETURN", Blockly.Dart.ORDER_NONE) ||
         "") && (d = Blockly.Dart.INDENT + "return " + d + ";\n");
-    for (var e = d ? "dynamic" : "void", f = [], g = 0; g < a.arguments_.length; g++) f[g] = Blockly.Dart.variableDB_.getName(a.arguments_[g], Blockly.Variables.NAME_TYPE);
+    var var_type = "";
+    var var_name = Blockly.Dart.valueToCode(a, "RETURN", Blockly.Dart.ORDER_NONE);
+    var_type = Blockly.JavaScript.get_variable_type_by_var_name(var_name);
+    if(var_type=="Number") var_type = "int";
+    if(var_type=="Double") var_type = "double";
+    if(var_type=="String") var_type = "string";
+    for (var e = d ? var_type : "void", f = [], g = 0; g < a.arguments_.length; g++) f[g] = Blockly.Dart.variableDB_.getName(a.arguments_[g], Blockly.Variables.NAME_TYPE);
     c = e + " " + b + "(" + f.join(", ") + ") {\n" + c + d + "}";
     c = Blockly.Dart.scrub_(a, c);
     Blockly.Dart.definitions_["%" + b] = c;
