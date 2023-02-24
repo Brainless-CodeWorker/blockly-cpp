@@ -29,28 +29,53 @@ Blockly.Dart.init = function (a) {
     Blockly.Dart.variableDB_.setVariableMap(a.getVariableMap());
     for (var b = [], c = Blockly.Variables.allDeveloperVariables(a), d = 0; d < c.length; d++) b.push(Blockly.Dart.variableDB_.getName(c[d], Blockly.Names.DEVELOPER_VARIABLE_TYPE));
     a = Blockly.Variables.allUsedVarModels(a);
-    for (d = 0; d < a.length; d++) b.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
-    b.length && (Blockly.Dart.definitions_.variables = "var " + b.join(", ") + ";")
+
+    var var_number = [];
+    var var_string = [];
+    var var_double = [];
+
+    Blockly.Dart.LOG_VAR = a;
+
+    for (d = 0; d < a.length; d++){
+        if(a[d].type === "String")
+            var_string.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        if(a[d].type === "Number" || a[d].type === "")
+            var_number.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        if(a[d].type === "Double")
+            var_double.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+        b.push(Blockly.Dart.variableDB_.getName(a[d].getId(), Blockly.Variables.NAME_TYPE));
+    }
+
+    if(var_number.length>0) Blockly.Dart.definitions_.variables_number = "int " + var_number.join(", ") + ";";
+    if(var_string.length>0) Blockly.Dart.definitions_.variables_colour = "string " + var_string.join(", ") + ";";
+    if(var_double.length>0) Blockly.Dart.definitions_.variables_double = "double " + var_double.join(", ") + ";";
+
+    //b.length && (Blockly.Dart.definitions_.variables = "var " + b.join(", ") + ";")
 };
 Blockly.Dart.finish = function (a) {
     a && (a = Blockly.Dart.prefixLines(a, Blockly.Dart.INDENT));
-    a = "main() {\n" + a + "}";
-    var b = [], c = [], d;
+    a = "int main() {\n" + a + "}";
+    var b = [], c = [], d, sep="";
     for (d in Blockly.Dart.definitions_) {
         var e = Blockly.Dart.definitions_[d];
-        e.match(/^import\s/) ? b.push(e) : c.push(e)
+        if(e.startsWith("#include"))
+            c.push(e);
+        else
+            b.push(e);
+        //e.match(/^import\s/) ? c.push(e): b.push(e)
     }
     delete Blockly.Dart.definitions_;
     delete Blockly.Dart.functionNames_;
     Blockly.Dart.variableDB_.reset();
-    return (b.join("\n") + "\n\n" + c.join("\n\n")).replace(/\n\n+/g, "\n\n").replace(/\n*$/, "\n\n\n") + a
+    if(c.length!=0) sep = "\n";
+    return c.join("\n") + sep + "#include<iostream>\nusing namespace std;\n" + (b.join("\n") + "\n" ) + a
 };
 Blockly.Dart.scrubNakedValue = function (a) {
     return a + ";\n"
 };
 Blockly.Dart.quote_ = function (a) {
     a = a.replace(/\\/g, "\\\\").replace(/\n/g, "\\\n").replace(/\$/g, "\\$").replace(/'/g, "\\'");
-    return "'" + a + "'"
+    return '"' + a + '"'
 };
 Blockly.Dart.scrub_ = function (a, b) {
     var c = "";
@@ -395,6 +420,14 @@ Blockly.Dart.math_number = function (a) {
     } else -Infinity == a ? (a = "-double.INFINITY", b = Blockly.Dart.ORDER_UNARY_PREFIX) : b = 0 > a ? Blockly.Dart.ORDER_UNARY_PREFIX : Blockly.Dart.ORDER_ATOMIC;
     return [a, b]
 };
+Blockly.Dart.float_number = function (a) {
+    a = parseFloat(a.getFieldValue("NUM"));
+    if (Infinity == a) {
+        a = "double.INFINITY";
+        var b = Blockly.Dart.ORDER_UNARY_POSTFIX
+    } else -Infinity == a ? (a = "-double.INFINITY", b = Blockly.Dart.ORDER_UNARY_PREFIX) : b = 0 > a ? Blockly.Dart.ORDER_UNARY_PREFIX : Blockly.Dart.ORDER_ATOMIC;
+    return [a, b]
+};
 Blockly.Dart.math_arithmetic = function (a) {
     var b = {
         ADD: [" + ", Blockly.Dart.ORDER_ADDITIVE],
@@ -406,63 +439,62 @@ Blockly.Dart.math_arithmetic = function (a) {
     b = b[1];
     var d = Blockly.Dart.valueToCode(a, "A", b) || "0";
     a = Blockly.Dart.valueToCode(a, "B", b) || "0";
-    return c ? [d + c + a, b] : (Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;", ["Math.pow(" + d + ", " +
+    return c ? [d + c + a, b] : (Blockly.Dart.definitions_.import_dart_math = "#include<cmath>", ["pow(" + d + ", " +
     a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX])
 };
 Blockly.Dart.math_single = function (a) {
     var b = a.getFieldValue("OP");
     if ("NEG" == b) return a = Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_UNARY_PREFIX) || "0", "-" == a[0] && (a = " " + a), ["-" + a, Blockly.Dart.ORDER_UNARY_PREFIX];
-    Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
+    Blockly.Dart.definitions_.import_dart_math = "#include<cmath>";
     a = "ABS" == b || "ROUND" == b.substring(0, 5) ? Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_UNARY_POSTFIX) || "0" : "SIN" == b || "COS" == b || "TAN" == b ? Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_MULTIPLICATIVE) || "0" :
         Blockly.Dart.valueToCode(a, "NUM", Blockly.Dart.ORDER_NONE) || "0";
     switch (b) {
         case "ABS":
-            var c = a + ".abs()";
+            var c = "abs(" + a + ")";
             break;
         case "ROOT":
-            c = "Math.sqrt(" + a + ")";
+            c = "sqrt(" + a + ")";
             break;
         case "LN":
-            c = "Math.log(" + a + ")";
+            c = "log(" + a + ")";
             break;
         case "EXP":
-            c = "Math.exp(" + a + ")";
+            c = "exp(" + a + ")";
             break;
         case "POW10":
-            c = "Math.pow(10," + a + ")";
+            c = "pow(10," + a + ")";
             break;
         case "ROUND":
             c = a + ".round()";
             break;
         case "ROUNDUP":
-            c = a + ".ceil()";
+            c = "ceil(" + a + ")";
             break;
         case "ROUNDDOWN":
-            c = a + ".floor()";
+            c = "floor(" + a + ")";
             break;
         case "SIN":
-            c = "Math.sin(" + a + " / 180 * Math.PI)";
+            c = "sin(" + a + ")";
             break;
         case "COS":
-            c = "Math.cos(" + a + " / 180 * Math.PI)";
+            c = "cos(" + a + ")";
             break;
         case "TAN":
-            c = "Math.tan(" + a +
-                " / 180 * Math.PI)"
+            c = "tan(" + a + ")"
     }
     if (c) return [c, Blockly.Dart.ORDER_UNARY_POSTFIX];
     switch (b) {
         case "LOG10":
-            c = "Math.log(" + a + ") / Math.log(10)";
+            c = "log10(" + a + ")";
             break;
         case "ASIN":
-            c = "Math.asin(" + a + ") / Math.PI * 180";
+            c = "asin(" + a + ")";
             break;
         case "ACOS":
-            c = "Math.acos(" + a + ") / Math.PI * 180";
+            c = "acos(" + a + ")";
             break;
         case "ATAN":
-            c = "Math.atan(" + a + ") / Math.PI * 180";
+            c = "atan(" + a + ")";
             break;
         default:
             throw Error("Unknown math operator: " + b);
@@ -471,15 +503,15 @@ Blockly.Dart.math_single = function (a) {
 };
 Blockly.Dart.math_constant = function (a) {
     var b = {
-        PI: ["Math.PI", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        E: ["Math.E", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        GOLDEN_RATIO: ["(1 + Math.sqrt(5)) / 2", Blockly.Dart.ORDER_MULTIPLICATIVE],
-        SQRT2: ["Math.SQRT2", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        SQRT1_2: ["Math.SQRT1_2", Blockly.Dart.ORDER_UNARY_POSTFIX],
-        INFINITY: ["double.INFINITY", Blockly.Dart.ORDER_ATOMIC]
+        PI: ["M_PI", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        E: ["M_E", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        GOLDEN_RATIO: ["(1 + sqrt(5)) / 2", Blockly.Dart.ORDER_MULTIPLICATIVE],
+        SQRT2: ["sqrt(2)", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        SQRT1_2: ["sqrt(1./2)", Blockly.Dart.ORDER_UNARY_POSTFIX],
+        INFINITY: ["INT_MAX", Blockly.Dart.ORDER_ATOMIC]
     };
     a = a.getFieldValue("CONSTANT");
-    "INFINITY" != a && (Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;");
+    "INFINITY" != a && (Blockly.Dart.definitions_.import_dart_math = "#include<cmath>");
     return b[a]
 };
 Blockly.Dart.math_number_property = function (a) {
@@ -586,11 +618,9 @@ Blockly.Dart.math_constrain = function (a) {
     return ["Math.min(Math.max(" + b + ", " + c + "), " + a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.math_random_int = function (a) {
-    Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
-    var b = Blockly.Dart.valueToCode(a, "FROM", Blockly.Dart.ORDER_NONE) || "0";
+    Blockly.Dart.definitions_.import_dart_rand = "#include<cstdlib>";
     a = Blockly.Dart.valueToCode(a, "TO", Blockly.Dart.ORDER_NONE) || "0";
-    return [Blockly.Dart.provideFunction_("math_random_int", ["int " + Blockly.Dart.FUNCTION_NAME_PLACEHOLDER_ + "(num a, num b) {", "  if (a > b) {", "    // Swap a and b to ensure a is smaller.", "    num c = a;", "    a = b;", "    b = c;", "  }", "  return new Math.Random().nextInt(b - a + 1) + a;",
-        "}"]) + "(" + b + ", " + a + ")", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return ["rand() % " +  a , Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.math_random_float = function (a) {
     Blockly.Dart.definitions_.import_dart_math = "import 'dart:math' as Math;";
@@ -607,7 +637,13 @@ Blockly.Dart.procedures_defreturn = function (a) {
     Blockly.Dart.INFINITE_LOOP_TRAP && (c = Blockly.Dart.INFINITE_LOOP_TRAP.replace(/%1/g, "'" + a.id + "'") + c);
     (d = Blockly.Dart.valueToCode(a, "RETURN", Blockly.Dart.ORDER_NONE) ||
         "") && (d = Blockly.Dart.INDENT + "return " + d + ";\n");
-    for (var e = d ? "dynamic" : "void", f = [], g = 0; g < a.arguments_.length; g++) f[g] = Blockly.Dart.variableDB_.getName(a.arguments_[g], Blockly.Variables.NAME_TYPE);
+    var var_type = "";
+    var var_name = Blockly.Dart.valueToCode(a, "RETURN", Blockly.Dart.ORDER_NONE);
+    var_type = Blockly.JavaScript.get_variable_type_by_var_name(var_name);
+    if(var_type=="Number") var_type = "int";
+    if(var_type=="Double") var_type = "double";
+    if(var_type=="String") var_type = "string";
+    for (var e = d ? var_type : "void", f = [], g = 0; g < a.arguments_.length; g++) f[g] = Blockly.Dart.variableDB_.getName(a.arguments_[g], Blockly.Variables.NAME_TYPE);
     c = e + " " + b + "(" + f.join(", ") + ") {\n" + c + d + "}";
     c = Blockly.Dart.scrub_(a, c);
     Blockly.Dart.definitions_["%" + b] = c;
@@ -647,16 +683,16 @@ Blockly.Dart.text_join = function (a) {
 Blockly.Dart.text_append = function (a) {
     var b = Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE);
     a = Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''";
-    return b + " = [" + b + ", " + a + "].join();\n"
+    return b + "+" + "=" + a + ";\n"
 };
 Blockly.Dart.text_length = function (a) {
-    return [(Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + ".length", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return [Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".length()", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_isEmpty = function (a) {
-    return [(Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + ".isEmpty", Blockly.Dart.ORDER_UNARY_POSTFIX]
+    return [Blockly.Dart.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".empty()", Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_indexOf = function (a) {
-    var b = "FIRST" == a.getFieldValue("END") ? "indexOf" : "lastIndexOf",
+    var b = "FIRST" == a.getFieldValue("END") ? "find" : "lastfind",
         c = Blockly.Dart.valueToCode(a, "FIND", Blockly.Dart.ORDER_NONE) || "''";
     b = (Blockly.Dart.valueToCode(a, "VALUE", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + "." + b + "(" + c + ")";
     return a.workspace.options.oneBasedIndex ? [b + " + 1", Blockly.Dart.ORDER_ADDITIVE] : [b, Blockly.Dart.ORDER_UNARY_POSTFIX]
@@ -710,7 +746,7 @@ Blockly.Dart.text_getSubstring = function (a) {
             default:
                 throw Error("Unhandled option (text_getSubstring).");
         }
-        a = "LAST" == d ? b + ".substring(" + e + ")" : b + ".substring(" + e + ", " + f + ")"
+        a = "LAST" == d ? b + ".substr(" + e + ")" : b + ".substr(" + e + ", " + f + ")"
     } else e = Blockly.Dart.getAdjusted(a, "AT1"), f = Blockly.Dart.getAdjusted(a, "AT2"), a = Blockly.Dart.provideFunction_("text_get_substring", ["List " + Blockly.Dart.FUNCTION_NAME_PLACEHOLDER_ + "(text, where1, at1, where2, at2) {",
         "  int getAt(where, at) {", "    if (where == 'FROM_END') {", "      at = text.length - 1 - at;", "    } else if (where == 'FIRST') {", "      at = 0;", "    } else if (where == 'LAST') {", "      at = text.length - 1;", "    } else if (where != 'FROM_START') {", "      throw 'Unhandled option (text_getSubstring).';", "    }", "    return at;", "  }", "  at1 = getAt(where1, at1);", "  at2 = getAt(where2, at2) + 1;", "  return text.substring(at1, at2);", "}"]) + "(" + b + ", '" + c + "', " + e + ", '" + d + "', " + f + ")";
     return [a, Blockly.Dart.ORDER_UNARY_POSTFIX]
@@ -730,8 +766,18 @@ Blockly.Dart.text_trim = function (a) {
     return [(Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_UNARY_POSTFIX) || "''") + b, Blockly.Dart.ORDER_UNARY_POSTFIX]
 };
 Blockly.Dart.text_print = function (a) {
-    return "print(" + (Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''") + ");\n"
+    //判断是否需要换行
+    var b = {
+        ENDL: "<<endl;\n",
+        NODL: ";\n"
+    }[a.getFieldValue("OP")];
+
+    return "cout<<" + (Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE)) + b;
 };
+Blockly.Dart.text_input = function (a) {
+    var variable_name = Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE);
+    return "cin>>" + variable_name + ";\n";
+}
 Blockly.Dart.text_prompt_ext = function (a) {
     Blockly.Dart.definitions_.import_dart_html = "import 'dart:html' as Html;";
     var b = "Html.window.prompt(" + (a.getField("TEXT") ? Blockly.Dart.quote_(a.getFieldValue("TEXT")) : Blockly.Dart.valueToCode(a, "TEXT", Blockly.Dart.ORDER_NONE) || "''") + ", '')";

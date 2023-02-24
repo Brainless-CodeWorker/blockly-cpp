@@ -57,7 +57,9 @@ Blockly.JavaScript.finish = function (a) {
     delete Blockly.JavaScript.definitions_;
     delete Blockly.JavaScript.functionNames_;
     Blockly.JavaScript.variableDB_.reset();
-    return b.join("\n\n") + "\n\n\n" + a
+    //var input_box = document.getElementById("input_box").value;
+    return "var str=\'\';\n" + b.join("\n\n") + "\n\n\n" + a+ "str+='\\"+"n'"
+
 };
 Blockly.JavaScript.scrubNakedValue = function (a) {
     return a + ";\n"
@@ -399,6 +401,11 @@ Blockly.JavaScript.math_number = function (a) {
     a = parseFloat(a.getFieldValue("NUM"));
     return [a, 0 <= a ? Blockly.JavaScript.ORDER_ATOMIC : Blockly.JavaScript.ORDER_UNARY_NEGATION]
 };
+Blockly.JavaScript.float_number = function (a) {
+    a = parseFloat(a.getFieldValue("NUM"));
+    return [a, 0 <= a ? Blockly.JavaScript.ORDER_ATOMIC : Blockly.JavaScript.ORDER_UNARY_NEGATION]
+};
+
 Blockly.JavaScript.math_arithmetic = function (a) {
     var b = {
         ADD: [" + ", Blockly.JavaScript.ORDER_ADDITION],
@@ -578,8 +585,9 @@ Blockly.JavaScript.math_constrain = function (a) {
     return ["Math.min(Math.max(" + b + ", " + c + "), " + a + ")", Blockly.JavaScript.ORDER_FUNCTION_CALL]
 };
 Blockly.JavaScript.math_random_int = function (a) {
-    var b = Blockly.JavaScript.valueToCode(a, "FROM", Blockly.JavaScript.ORDER_COMMA) || "0";
+    var b =  0 ;//Blockly.JavaScript.valueToCode(a, "FROM", Blockly.JavaScript.ORDER_COMMA) || "0";
     a = Blockly.JavaScript.valueToCode(a, "TO", Blockly.JavaScript.ORDER_COMMA) || "0";
+    a -= 1;
     return [Blockly.JavaScript.provideFunction_("mathRandomInt", ["function " + Blockly.JavaScript.FUNCTION_NAME_PLACEHOLDER_ + "(a, b) {", "  if (a > b) {", "    // Swap a and b to ensure a is smaller.", "    var c = a;", "    a = b;", "    b = c;", "  }", "  return Math.floor(Math.random() * (b - a + 1) + a);",
         "}"]) + "(" + b + ", " + a + ")", Blockly.JavaScript.ORDER_FUNCTION_CALL]
 };
@@ -644,10 +652,11 @@ Blockly.JavaScript.text_append = function (a) {
     return b + " = String(" + b + ") + String(" + a + ");\n"
 };
 Blockly.JavaScript.text_length = function (a) {
-    return [(Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_FUNCTION_CALL) || "''") + ".length", Blockly.JavaScript.ORDER_MEMBER]
+    return [Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + ".length", Blockly.JavaScript.ORDER_MEMBER]
 };
 Blockly.JavaScript.text_isEmpty = function (a) {
-    return ["!" + (Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_MEMBER) || "''") + ".length", Blockly.JavaScript.ORDER_LOGICAL_NOT]
+    var var_name = Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE);
+    return ["((" + var_name + "== '') || (" + var_name + "== undefined))", Blockly.JavaScript.ORDER_LOGICAL_NOT]
 };
 Blockly.JavaScript.text_indexOf = function (a) {
     var b = "FIRST" == a.getFieldValue("END") ? "indexOf" : "lastIndexOf",
@@ -735,8 +744,48 @@ Blockly.JavaScript.text_trim = function (a) {
     return [(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_MEMBER) || "''") + b, Blockly.JavaScript.ORDER_FUNCTION_CALL]
 };
 Blockly.JavaScript.text_print = function (a) {
-    return "window.alert(" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ");\n"
+    let st;
+    //st="window.alert(" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ");\n"
+    //st+="let str;\nstr+=" + (Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ";\n"
+    //window.alert
+    st="str+="+(Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''")+";\n"
+
+    //判断是否需要换行
+    var b = {
+        ENDL: "str+='<br/>'\n",
+        NODL: ""
+    }[a.getFieldValue("OP")];
+
+    //st+="window.alert(str);\n"
+    return st+b;
 };
+
+Blockly.JavaScript.get_variable_type_by_var_name = function(a) {
+    var all_var = Blockly.Variables.allUsedVarModels(workspace)
+    for (var d = 0; d < all_var.length; d++) {
+        if (all_var[d].name === a){
+            if(all_var[d].type === "")
+                return "Number";
+            return all_var[d].type;
+        }
+
+    }
+}
+
+Blockly.JavaScript.texts = {}
+Blockly.JavaScript.texts_idx = 0
+
+Blockly.JavaScript.text_input = function (a){
+    //return "document.getElementById(\"input_box\").value"
+    var input_value = Blockly.JavaScript.texts[Blockly.JavaScript.texts_idx];
+    Blockly.JavaScript.texts_idx = (Blockly.JavaScript.texts_idx + 1) % Blockly.JavaScript.texts.length;
+    //var input_value = document.getElementById("input_box").value;
+    var variable_name = Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE);
+    if(Blockly.JavaScript.get_variable_type_by_var_name(variable_name) === "Number"){
+        return variable_name + "= parseInt(" + input_value + ");\n";
+    }
+    return variable_name + "=" + input_value + ";\n";
+}
 Blockly.JavaScript.text_prompt_ext = function (a) {
     var b = "window.prompt(" + (a.getField("TEXT") ? Blockly.JavaScript.quote_(a.getFieldValue("TEXT")) : Blockly.JavaScript.valueToCode(a, "TEXT", Blockly.JavaScript.ORDER_NONE) || "''") + ")";
     "NUMBER" == a.getFieldValue("TYPE") && (b = "parseFloat(" + b + ")");
@@ -762,8 +811,25 @@ Blockly.JavaScript.variables = {};
 Blockly.JavaScript.variables_get = function (a) {
     return [Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE), Blockly.JavaScript.ORDER_ATOMIC]
 };
+
+Blockly.JavaScript.get_variable_type = function(a) {
+    a = a.getFieldValue("VAR")
+    var all_var = Blockly.Variables.allUsedVarModels(workspace)
+    for (var d = 0; d < all_var.length; d++) {
+        if (all_var[d].getId() === a){
+            if(all_var[d].type === "")
+                return "Number";
+            return all_var[d].type;
+        }
+
+    }
+}
+
 Blockly.JavaScript.variables_set = function (a) {
     var b = Blockly.JavaScript.valueToCode(a, "VALUE", Blockly.JavaScript.ORDER_ASSIGNMENT) || "0";
+    if (Blockly.JavaScript.get_variable_type(a) === "Number"){
+        return Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + " = parseInt(" + b + ");\n"
+    }
     return Blockly.JavaScript.variableDB_.getName(a.getFieldValue("VAR"), Blockly.Variables.NAME_TYPE) + " = " + b + ";\n"
 };
 Blockly.JavaScript.variablesDynamic = {};

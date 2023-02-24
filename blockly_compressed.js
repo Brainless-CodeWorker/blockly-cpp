@@ -14225,6 +14225,9 @@ Blockly.VariablesDynamic.onCreateVariableButtonClick_Number = function (a) {
 Blockly.VariablesDynamic.onCreateVariableButtonClick_Colour = function (a) {
     Blockly.Variables.createVariableButtonHandler(a.getTargetWorkspace(), null, "Colour")
 };
+Blockly.VariablesDynamic.onCreateVariableButtonClick_Double = function (a) {
+    Blockly.Variables.createVariableButtonHandler(a.getTargetWorkspace(), null, "Double")
+};
 Blockly.VariablesDynamic.flyoutCategory = function (a) {
     var b = [], c = goog.dom.createDom("button");
     c.setAttribute("text", Blockly.Msg.NEW_STRING_VARIABLE);
@@ -14235,12 +14238,12 @@ Blockly.VariablesDynamic.flyoutCategory = function (a) {
     c.setAttribute("callbackKey", "CREATE_VARIABLE_NUMBER");
     b.push(c);
     c = goog.dom.createDom("button");
-    c.setAttribute("text", Blockly.Msg.NEW_COLOUR_VARIABLE);
-    c.setAttribute("callbackKey", "CREATE_VARIABLE_COLOUR");
+    c.setAttribute("text", Blockly.Msg.NEW_DOUBLE_VARIABLE);
+    c.setAttribute("callbackKey", "CREATE_VARIABLE_DOUBLE");
     b.push(c);
     a.registerButtonCallback("CREATE_VARIABLE_STRING", Blockly.VariablesDynamic.onCreateVariableButtonClick_String);
     a.registerButtonCallback("CREATE_VARIABLE_NUMBER", Blockly.VariablesDynamic.onCreateVariableButtonClick_Number);
-    a.registerButtonCallback("CREATE_VARIABLE_COLOUR", Blockly.VariablesDynamic.onCreateVariableButtonClick_Colour);
+    a.registerButtonCallback("CREATE_VARIABLE_DOUBLE", Blockly.VariablesDynamic.onCreateVariableButtonClick_Double);
     a = Blockly.VariablesDynamic.flyoutCategoryBlocks(a);
     return b = b.concat(a)
 };
@@ -14965,7 +14968,7 @@ Blockly.WorkspaceSvg = function (a, b, c) {
     this.highlightedBlocks_ = [];
     this.audioManager_ = new Blockly.WorkspaceAudio(a.parentWorkspace);
     this.grid_ = this.options.gridPattern ? new Blockly.Grid(a.gridPattern, a.gridOptions) : null;
-    Blockly.Variables && Blockly.Variables.flyoutCategory && this.registerToolboxCategoryCallback(Blockly.VARIABLE_CATEGORY_NAME, Blockly.Variables.flyoutCategory);
+    //Blockly.Variables && Blockly.Variables.flyoutCategory && this.registerToolboxCategoryCallback(Blockly.VARIABLE_CATEGORY_NAME, Blockly.Variables.flyoutCategory);
     Blockly.VariablesDynamic && Blockly.VariablesDynamic.flyoutCategory && this.registerToolboxCategoryCallback(Blockly.VARIABLE_DYNAMIC_CATEGORY_NAME, Blockly.VariablesDynamic.flyoutCategory);
     Blockly.Procedures && Blockly.Procedures.flyoutCategory && this.registerToolboxCategoryCallback(Blockly.PROCEDURE_CATEGORY_NAME,
         Blockly.Procedures.flyoutCategory)
@@ -18224,6 +18227,8 @@ Blockly.FieldNumber.prototype.classValidator = function (a) {
 };
 Blockly.Field.register("field_number", Blockly.FieldNumber);
 Blockly.FieldVariable = function (a, b, c, d) {
+    console.log("field_variable_output");
+    console.log(a,b,c,d)
     this.menuGenerator_ = Blockly.FieldVariable.dropdownCreate;
     this.size_ = new goog.math.Size(0, Blockly.BlockSvg.MIN_BLOCK_Y);
     this.setValidator(b);
@@ -18320,6 +18325,8 @@ Blockly.FieldVariable.dropdownCreate = function () {
 };
 Blockly.FieldVariable.prototype.onItemSelected = function (a, b) {
     var c = b.getValue();
+    console.log("FieldVariable");
+    console.log(c);
     if (this.sourceBlock_ && this.sourceBlock_.workspace) {
         var d = this.sourceBlock_.workspace;
         if (c == Blockly.RENAME_VARIABLE_ID) {
@@ -18376,6 +18383,7 @@ Blockly.Generator.prototype.allNestedComments = function (a) {
     b.length && b.push("");
     return b.join("\n")
 };
+
 Blockly.Generator.prototype.blockToCode = function (a) {
     if (!a) return "";
     if (a.disabled) return this.blockToCode(a.getNextBlock());
@@ -18395,6 +18403,7 @@ Blockly.Generator.prototype.blockToCode = function (a) {
     if (null === b) return "";
     throw SyntaxError("Invalid code generated: " + b);
 };
+//a是模块，b表示是左半边还是右半边，c表示运算符
 Blockly.Generator.prototype.valueToCode = function (a, b, c) {
     if (isNaN(c)) throw TypeError("Expecting valid order from block: " + a.type);
     var d = a.getInputTargetBlock(b);
